@@ -1,0 +1,56 @@
+@(loginForm: Form[Application.Login])
+
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+
+@loginBase(Html("DMD Aid")) {
+
+<div class="" id="loginModal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3>Have an Account?</h3>
+	</div>
+	<div class="modal-body">
+		<div class="well">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+				
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane active in" id="login">
+				@helper.form(routes.Application.authenticate, 'class->"form-horizontal") {
+
+						<fieldset>
+							 @inputText(loginForm("email"),
+            				'_label -> "User Name(email)",
+            				'type -> "text",
+            				'class-> "form-control"
+            				)
+            				
+            				@inputText(loginForm("password"),
+            				'_label -> "Password",
+            				'type -> "password",
+            				'class-> "form-control"
+            				)
+
+							<div class="control-group">
+								<!-- Button -->
+								<div class="controls">
+									<button class="btn btn-success">Login</button>   or <a href="@routes.Application.createUser()" class="btn">Create Account</a> 
+								</div>
+							</div>
+						</fieldset>
+					}
+					
+				</div>
+						</div>
+			</div>
+		</div>
+	</div>
+
+<script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+}

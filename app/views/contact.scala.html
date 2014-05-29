@@ -1,0 +1,201 @@
+@(contactForm: Form[Contact])(contact: Contact)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(myTwitterBootstrapInput.render) } 
+
+
+@phoneField(field: Field, className: String = "phone") = {
+    @input(field, '_label -> "Phone numbers", '_class -> className) { (id, name, value, _) =>
+        <input type="text" name="@name" value="@value"> 
+        <a class="removePhone btn danger">Remove</a>
+    }
+}
+
+
+
+@main(Html("Contact"),"Contact Information",contact.username){
+	
+	@helper.form(routes.Dmdaid.saveContact()) {
+
+        <fieldset>
+
+        <input type="hidden" id="id" name="id" value="@contact.id">
+    
+		
+		<input type="hidden" id="username" name="username" value="@contact.username">
+
+		<input type="hidden" id="groupname" name="groupname" value="@contact.groupname">
+
+			@inputText(contactForm("relation"),
+            '_label -> "Relation",
+            '_value-> contact.relation,
+            '_type -> "text"
+            )
+
+            @inputText(contactForm("name"),
+            '_label -> "Name",
+            '_type -> "text",
+            '_value-> contact.name
+            )
+
+            @inputText(contactForm("address"),
+            '_label -> "Address",
+            '_type -> "text",
+            '_value-> contact.address
+            )
+
+			@inputText(contactForm("email"),
+            '_label -> "Email",
+            '_type -> "email",
+            '_value-> contact.email
+            )
+
+			@inputText(contactForm("miscinfo"),
+            '_label -> "Misc Info",
+            '_type -> "text",
+            '_value-> contact.miscinfo
+            )
+
+        @if(contact.phonenumbers.size()  == 0) {
+
+        <div class="phones">
+            <div class="row">
+                <div class="col-xs-2">
+                    @inputText(contactForm("type[0]"),
+                    '_label -> "Type",
+                    'type -> "text",
+                    '_class -> "numbertype"
+                    )    
+              </div>
+                <div class="col-xs-3">
+                    @inputText(contactForm("phonenumbers[0]"),
+                    '_label -> "Phone Number",
+                    'type -> "text",
+                    '_class -> "phone"
+                    )
+                </div>
+            </div>            
+        </div>
+        } else {
+
+            @for( (phone,index) <- (contact.phonenumbers).zipWithIndex ){
+            <div class="phones">
+            <div class="row">
+                <div class="col-xs-2">
+                    @inputText(contactForm("type[0]"),
+                    '_label -> "Type",
+                    '_type -> "text",
+                    '_class -> "numbertype",
+                    '_value -> phone.numbertype
+                    )    
+              </div>
+                <div class="col-xs-3">
+                    @inputText(contactForm("phonenumbers[0]"),
+                    '_label -> "Phone Number",
+                    '_type -> "text",
+                    '_class -> "phone",
+                    '_value -> phone.number
+                    )
+                </div>
+                @if(index > 0) {
+                <div class = "col-xs-0.5">
+                    
+                <button type="button" class="btn-xs btn-danger removePhone">Remove Phone</button>
+    
+                </div>
+                }
+            </div>            
+        </div>
+            } 
+
+
+        }
+        
+            
+
+    <a type="button" class="btn btn-success addPhone">Add Phone</a>
+    <p></p>
+
+
+    </fieldset>
+		<div class="actions">
+            <input type="submit" class="btn primary" value="Save">
+            @if(contact.id != null) {
+            <a href="@routes.Dmdaid.deleteContact(contact.groupname,contact.id)" class="btn btn-danger">Delete Contact</a>
+            }
+            <a href="@routes.Dmdaid.index()" class="btn">Cancel</a>
+        </div>
+
+
+
+	}
+
+    
+
+    <div class= "phone-template" style="display: none;">
+                <div class="row">
+                <div class="col-xs-2">
+                    @inputText(contactForm("type[0]"),
+                    '_label -> "Type",
+                    '_type -> "text",
+                    '_class -> "numbertype"
+                    )    
+              </div>
+                <div class="col-xs-3">
+                    @inputText(contactForm("phonenumbers[0]"),
+                    '_label -> "Phone Number",
+                    '_type -> "text",
+                    '_class -> "phone"
+                    )
+                </div>
+                <div class = "col-xs-0.5">
+                    
+                <button type="button" class="btn-xs btn-danger removePhone">Remove Phone</button>
+    
+                </div>
+            </div>           
+        </div>
+    <script type="text/javascript" charset="utf-8">
+    
+    $( document ).ready(function() {
+
+        var phones = $('.phone');
+        var types = $('.numbertype');
+        renumber(phones,types);
+  
+    });
+
+    $('.addPhone').click(function() {
+            
+            var template = $('.phone-template');
+            $(this).before(template.html());
+
+            var phones = $('.phone');
+            var types = $('.numbertype');
+            renumber(phones,types);
+        });
+
+    $('body').on('click', '.removePhone', function(event) 
+        { 
+            $(this).parent().parent().remove(); 
+            var phones = $('.phone');
+            var types = $('.numbertype');
+            renumber(phones,types); 
+        });
+
+
+    var renumber = function(phones,types) {
+
+        phones.each(function(i) {
+                    $(this).attr('name', $(this).attr('name').replace(/phonenumbers\[.+\]/g, 'phonenumbers[' + i + ']'))
+                    $(this).attr('id', $(this).attr('id').replace(/phonenumbers\[.+\]/g, 'phonenumbers[' + i + ']'))
+                })
+
+        types.each(function(i) {
+                    $(this).attr('name', $(this).attr('name').replace(/type\[.+\]/g, 'type[' + i + ']'))
+                     $(this).attr('id', $(this).attr('id').replace(/type\[.+\]/g, 'type[' + i + ']'))
+                })
+    }
+    </script>
+}

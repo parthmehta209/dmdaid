@@ -1,0 +1,75 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Default path will just redirect to the computer list
+GET     /                           controllers.Dmdaid.index()
+
+# Authentication
+GET     /login                      controllers.Application.login()
+POST    /login                      controllers.Application.authenticate()
+GET     /logout                     controllers.Application.logout()
+
+
+# Add user 
+GET		/users/new					controllers.Application.createUser()
+POST	/users						controllers.Application.saveUser()
+
+# Family member and primary care giver information
+GET		/fam 						controllers.Dmdaid.fam()
+
+# Current Care guidelines
+GET		/care 						controllers.Dmdaid.care()
+
+# Acture care algorithm
+GET		/acute						controllers.Dmdaid.acute()
+
+# Neurology 
+GET		/neurology/neuromeds		controllers.Neurology.neuroMeds()
+POST	/neurology/neuromeds 		controllers.Neurology.neuroMedsSave()
+
+# Health Records
+GET		/neurology 					controllers.HealthRecords.neurologyHome()
+GET		/cardiology					controllers.HealthRecords.cardiologyHome()
+GET		/gastrointestinal			controllers.HealthRecords.gastrointestinalHome()
+GET		/respiratory				controllers.HealthRecords.respiratoryHome()
+GET		/musculoskeletal			controllers.HealthRecords.musculoskeletalHome()
+
+# edit or create new contact
+GET		/contact/new/:grp/:id/:rel	controllers.Dmdaid.contact(grp:String,id:Int,rel:String)
+POST	/contact					controllers.Dmdaid.saveContact()
+GET		/contact/delete/:group/:id  controllers.Dmdaid.deleteContact(group:String,id:Int)
+
+# create and veiew reports
+GET		/reports/get/:category		controllers.Reports.showReportsTable(category:String)
+GET		/reports/new/:typ/:category	controllers.Reports.newReport(typ:String,category:String)
+GET		/reports/show/:id			controllers.Reports.showReport(id:Int)
+GET		/reports/delete/:id			controllers.Reports.deleteReport(id:Int)
+POST	/reports/pdfsave 			controllers.Reports.pdfReportSave()
+POST	/reports/imgsave 			controllers.Reports.imgReportSave()
+
+#mobile 
+GET		/reports/dirty				controllers.Reports.getDirtyReports()
+GET		/reports/clean/:id			controllers.Reports.setReportClean(id:Int)
+
+
+
+# Qol statement
+#GET     /qol                        controllers.Dmdaid.qol()
+#POST    /qol/save                   controllers.Dmdaid.saveQol()
+
+# Daily ESMs
+GET 	/esm 						controllers.Esm.getDailyEsm()
+GET 	/qol 						controllers.Esm.esmResults()
+
+# medications
+GET 	/medications/:type			controllers.Medications.showMedications(type:String)
+POST 	/medications/:type			controllers.Medications.saveMedication(type:String)
+GET 	/medication/del/:id			controllers.Medications.deleteMedication(id:Int)
+GET 	/medication/dirty 			controllers.Medications.getDirtyMedications()
+GET 	/medication/clean 			controllers.Medications.cleanDirtyMedications()
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

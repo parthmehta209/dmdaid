@@ -1,0 +1,44 @@
+@(username: String)(category: String)(reports: List[Report])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(myTwitterBootstrapInput.render) } 
+
+@main(Html("Care Guidelines"),category,username){
+	
+  <a href="@routes.Reports.newReport("pdf",category)" type="button" class="btn btn-default">New Report (Pdf)</a>
+
+  <a href="@routes.Reports.newReport("img",category)" type="button" class="btn btn-default">New Report (Images)</a>
+
+	<p>Click on the reports to view or edit reports</p>
+
+  <table class="table table-hover table-bordered">
+  <thead><tr>
+    <th>Report</th>
+    <th>Date</th>   
+    @if(category == "All Health Records") {
+    <th>Category</th>
+    }
+    <th class="col-sm-1">Delete</th>
+  </tr></thead>
+  <tbody>
+  @for(report <- reports) {
+  <tr>
+    <td><a href="@routes.Reports.showReport(report.id)" target="_blank">@report.reportname</a></td>
+    <td><a href="@routes.Reports.showReport(report.id)" target="_blank">@report.date</a></td>
+    @if(category == "All Health Records") {
+      @if(report.category == "All Health Records") {
+        <td>Other</td>
+      }
+      @if(report.category != "All Health Records") {
+        <td>@report.category</td>
+      }
+    }
+    <td><a href="@routes.Reports.deleteReport(report.id)" class="btn-xs btn-danger">Delete</a></td>
+  </tr>
+  } 
+  </tbody>
+  </table>
+
+
+}

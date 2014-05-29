@@ -1,0 +1,88 @@
+eclipse enable-source=true
+eclipse include-source=true
+help
+help eclipse
+eclipse include-sources=true
+eclipse with-source=true
+run 9001
+ls 
+run 9001 
+run 9001
+play clean compile stage 
+clean compile stage 
+run 9001
+clean
+run 9001
+clean 
+compile 
+; 
+stage; 
+stage
+run 9001
+clean
+compile 
+run 9001
+clean
+compile 
+run 9001
+last *:update 
+clean
+compile 
+clean
+compile 
+stage
+play run 
+run 
+run 9001
+clean 
+compile
+clean
+compile
+run 9001
+ru 9001
+run 9001 
+run 9001
+clean
+compile
+run 9001
+clean
+compile
+run 9001
+run 9001 
+clean
+compile 
+stage
+run 9001
+clean
+compile 
+compile
+run 9001
+run 9001 
+run 9001
+clean
+compile 
+stage
+play 
+run 9001
+run 9001 
+run 9001
+clean
+compile
+stage
+run 9001
+ls 
+run 9001
+run 9001 
+run 9001
+run 9001 
+run 9001
+clean
+compile 
+stage 
+play 
+run 9001
+run 9001 
+run 9001
+run 9001 
+run 9001
+run 9001 

@@ -1,0 +1,13 @@
+@(username: String)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main(Html("Care Guidelines"),"Acute Care Algorithm",username){
+	
+	<p>The following is an algorithm designed by a panel of expert physicians in Duchenne Muscular Dystrophy. These are not facts—rather, they are recommendations from clinicians familiar with neuromuscular disease to the physicians leading your acute care.</p>
+
+  <p><a href="#">Acute Care Algorithm</a></p>
+	
+}

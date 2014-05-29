@@ -1,0 +1,32 @@
+@(users : List[User])(username: String)
+
+@main(Html("Show Users"),"Profile",username){
+	
+	
+	<a class="btn success" id="add" href="@routes.Application.createUser()">Add a new user</a>
+
+	<table class="table table-condensed">
+	 <thead>
+                <tr>
+                <th>Email</th>
+                <th>password</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Aware Id</th>
+                </tr>
+    </thead>
+    <tbody>
+	  	@for(user <- users){
+	  		<tr>
+	  		<td>@user.getEmail()</td>
+	  		<td>@user.getPassword()</td>
+	  		<td>@user.getFirstname()</td>
+	  		<td>@user.getLastname()</td>
+	  		<td>@user.getAge()</td>
+	  		<td>@user.getAwareid()</td>
+	  		</tr>
+	  	}
+	</tbody>
+	</table>
+}

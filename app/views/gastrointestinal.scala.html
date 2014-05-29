@@ -1,0 +1,71 @@
+@(username: String)(contacts: List[Contact])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(myTwitterBootstrapInput.render) } 
+
+@main(Html("Care Guidelines"),"Gastrointestinal/Nutrition Records",username){
+	
+	<p>Click the links below to enter your information</p>
+
+	<p><a href="@routes.Reports.showReportsTable("Gastrointestinal/Nutrition Records")">Uploadable Neuroloy Reports</a></p>
+	
+	<p><a href="@routes.Dmdaid.contact("gastrointestinal",-1,"Gastroantrologist")">Add Gastroantrologist Contact Information</a></p>
+ 	@for(contact <- contacts) {
+  <div class="box-shadow">
+  		<h3>@contact.relation</h3>
+      <div class="row">
+        <div class="col-md-9">
+          <p><strong>Name:</strong> @contact.name</p>    
+        </div>
+      </div>
+      @if(contact.address != null) {
+  		<div class="row">
+        <div class="col-md-9">
+          <p><strong>Address:</strong> @contact.address</p>    
+        </div>
+      </div>
+      }
+
+      @if(contact.email != null) {
+
+      <div class="row">
+        <div class="col-md-9">
+          <p><strong>Email:</strong> @contact.email</p>    
+        </div>
+      </div>
+      }
+      @if(contact.miscinfo != null) {
+  		<div class="row">
+        <div class="col-md-9">
+          <p><strong>Misc Info:</strong> @contact.miscinfo</p>    
+        </div>
+      </div>
+      }
+  		<div class="row">
+        <div class="col-md-9">
+          <strong>Phone Numbers</strong>
+        </div>
+      </div>
+        @for(phone <- contact.phonenumbers) {
+        <div class="row">
+            <div class="col-md-2">
+              <strong> Type:</strong><p> @phone.numbertype</p>
+            </div>
+            <div class="col-md-6">
+              <strong> Number:</strong><p> @phone.number</p>
+            </div>
+        </div>
+
+        }
+      
+  		
+      <div class=row>
+  		<a>&nbsp&nbsp&nbsp</a><a href="@routes.Dmdaid.contact(contact.groupname,contact.id,"")" class="btn-xs btn-primary">Edit</a>
+      </div>
+  		<p></p>
+  		<p></p>
+    </div>
+	} 
+	
+}

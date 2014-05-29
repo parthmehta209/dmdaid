@@ -1,0 +1,88 @@
+@(title: Html, nav: String = "Profile", username: String = "sampleUser")(content: Html)   
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>DMD Aid</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")"">
+        <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
+        <script src="@routes.Assets.at("javascripts/jquery-1.11.0.min.js")" type="text/javascript"></script>
+    </head>
+
+        
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">DMD AId</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="@routes.Dmdaid.index()">@username</a></li>
+                <li><a href="@routes.Application.logout()">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>        
+        
+         <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="@("active".when(nav == "Profile"))">
+                <a href="@routes.Dmdaid.index()">Profile</a></li>
+            <li class="@("active".when(nav == "Family Member and Care Giver Info"))">
+                <a href="@routes.Dmdaid.fam()">Family Member and Care Giver Info</a></li>
+            <li class="@("active".when(nav == "Current Care Guidelines"))">
+                <a href="@routes.Dmdaid.care()">Current Care Guidelines</a></li>
+            <li class="@("active".when(nav == "Hospital Stay Log"))">
+                <a href="#">Hospital Stay Log</a></li>
+            <li class="@("active".when(nav == "Acute Care Algorithm"))">
+                <a href="@routes.Dmdaid.acute()">Acute Care Algorithm</a></li>
+            <li class="@("active".when(nav == "Quality of life statement"))">
+                <a href="@routes.Esm.esmResults()">Quality of life statement</a></li>
+            <li class="@("active".when(nav == "Neurology Records"))">
+                <a href="@routes.HealthRecords.neurologyHome()">Neurology Records</a></li>
+            <li class="@("active".when(nav == "Respiratory/Pulmonology Records"))">
+                <a href="@routes.HealthRecords.respiratoryHome()">Respiratory/Pulmonology Records</a></li>
+            <li class="@("active".when(nav == "Gastrointestinal/Nutrition Records"))">
+                <a href="@routes.HealthRecords.gastrointestinalHome()">Gastrointestinal/Nutrition Records</a></li>
+            <li class="@("active".when(nav == "Cardiology Records"))">
+                <a href="@routes.HealthRecords.cardiologyHome()">Cardiology Records</a></li>
+            <li class="@("active".when(nav == "Musculoskeletal Records"))">
+                <a href="@routes.HealthRecords.musculoskeletalHome()">Musculoskeletal Records</a></li>
+            <li class="@("active".when(nav == "All Health Records"))">
+                <a href="@routes.Reports.showReportsTable("All Health Records")">All Health Records</a></li>    
+            <li class="@("active".when(nav == "Medications"))">
+                <a href="@routes.Medications.showMedications("med")">Medications</a></li>    
+			<li class="@("active".when(nav == "OTC Medications"))">
+                <a href="@routes.Medications.showMedications("otc")">OTC Medications</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">@nav</h1>
+        <div class="container">
+          <div class="content">  
+          @content
+          </div>
+        </div>
+          
+          
+        </div>
+      </div>
+    </div>
+
+    </body>
+</html>
+

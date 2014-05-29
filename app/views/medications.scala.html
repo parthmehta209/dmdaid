@@ -1,0 +1,66 @@
+@(username: String)(medicationType: String)(medications : List[Medication])(medForm:Form[Medication])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(myTwitterBootstrapInput.render) } 
+
+@main(Html("Care Guidelines"),medicationType,username){
+
+  <table class="table table-hover table-bordered">
+  <thead><tr>
+    <th>Name</th>
+    <th class="col-sm-1">Dose</th>
+    <th class="col-sm-1">Units</th>
+    <th class="col-sm-1">Times</th>
+    <th class="col-sm-1">Per</th>
+    <th class="col-sm-2">Start mm/yyyy</th>
+    <th class="col-sm-2">End mm/yyyy</th>   
+    <th class="col-sm-1">Delete</th>
+  </tr></thead>
+  <tbody>
+  @for(medication <- medications) {
+  <tr>
+    <td>@medication.medicationName</td>
+    <td>@medication.dose</td>
+    <td>@medication.units</td>
+    <td>@medication.times</td>
+    <td>@medication.timesPer</td>
+    <td>@medication.startMonth</td>
+    <td>@medication.endMonth</td>
+    <td><a href="" class="btn-xs btn-danger">Delete</a></td>
+  </tr>
+  } 
+  </tbody>
+  </table>
+
+
+  @if( medicationType == "OTC Medications"){  
+    <form action="/medications/otc" method="POST" class="form-inline">  
+  }
+  @if( medicationType == "Medications" ){  
+    <form action="/medications/med" method="POST" class="form-inline">  
+  }
+
+
+    <fieldset>
+      <input type="hidden" id="type" name="type" value="@medicationType">
+      <input type="hidden" id="username" name="username" value="@username">
+      
+      <div class="form-group">
+      <label class="sr-only" for="medicationName">Medication Name</label>
+      <input type="text" class="form-control" id="medicationName" placeholder="Medication Name">
+      </div>
+      
+      <div class="form-group">
+      <label class="sr-only" for="dose">Dose</label>
+      <input type="text" class="form-control" id="dose" placeholder="Dose">
+      </div>
+
+    </fieldset>
+     
+    <div class="actions">
+      <input type="submit" class="btn primary" value="Save">
+    </div>
+  </form>    
+
+}

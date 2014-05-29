@@ -1,0 +1,102 @@
+@(username: String)(medicationType: String)(medications : List[Medication])(medForm:Form[Medication])(error:String)(medType:String)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(myTwitterBootstrapInput.render) } 
+
+@main(Html("Care Guidelines"),medicationType,username){
+
+  <table class="table table-hover table-bordered">
+  <thead><tr>
+    <th>Name</th>
+    <th class="col-sm-1">Dose</th>
+    <th class="col-sm-1">Units</th>
+    <th class="col-sm-1">Times</th>
+    <th class="col-sm-1">Per</th>
+    <th class="col-sm-2">Start mm/yyyy</th>
+    <th class="col-sm-2">End mm/yyyy</th>   
+    <th class="col-sm-1">Delete</th>
+  </tr></thead>
+  <tbody>
+  @for(medication <- medications) {
+  <tr>
+    <td>@medication.medicationName</td>
+    <td>@medication.dose</td>
+    <td>@medication.units</td>
+    <td>@medication.times</td>
+    <td>@medication.timesPer</td>
+    <td>@medication.startMonth</td>
+    <td>@medication.endMonth</td>
+    <td><a href="@routes.Medications.deleteMedication(medication._id)" class="btn-xs btn-danger">Delete</a></td>
+  </tr>
+  } 
+  </tbody>
+  </table>
+
+
+ @helper.form(routes.Medications.saveMedication(medType)) {
+
+      <fieldset>
+        <input type="hidden" id="type" name="type" value="@medType">
+        <input type="hidden" id="username" name="username" value="@username">
+        <div class="row">
+
+        <div class="form-group col-sm-4">
+        <label class="sr-only" for="medicationName">Medication Name</label>
+        <input type="text" class="form-control col-sm-4" id="medicationName" name="medicationName" placeholder="Med Name">
+        </div>
+
+        <div class="form-group col-sm-2">
+        <label class="sr-only" for="dose">Dose</label>
+        <input type="number" class="form-control col-sm-2" id="dose" name="dose" placeholder="Dose">
+        </div>
+
+        <div class="form-group col-sm-2">
+        <select id="units" name="units" class="form-control col-sm-2">
+          <option value="mg">mg</option>
+          <option value="ml">ml</option>
+          <option value="units">units</option>
+          <option value="puffs">puffs</option>
+          <option value="tablets">tablets</option>
+          <option value="mg/kg">mg/kg</option>
+        </select>
+        </div>
+
+        <div class="form-group col-sm-2">
+        <label class="sr-only" for="times">Times</label>
+        <input type="number" class="form-control col-sm-2" id="times" name="times" placeholder="Times">
+        </div>
+
+        <div class="form-group col-sm-2">
+        <select id="timesPer" name="timesPer" class="form-control col-sm-2">
+          <option value="day">day</option>
+          <option value="week">week</option>
+          <option value="month">month</option>
+          <option value="PRN">PRN</option>
+        </select>
+        </div>
+      </div>
+      <div class="row">
+      <div class="form-group col-sm-3">
+        <label class="sr-only" for="startMonth">Start Month</label>
+        <input type="text" class="form-control col-sm-3" id="startMonth" name="startMonth" placeholder="Start Month mm/yyyy">
+      </div>
+
+        <div class="form-group col-sm-3">
+        <label class="sr-only" for="endMonth">End Month</label>
+        <input type="text" class="form-control col-sm-3" id="endMonth" name="endMonth" placeholder="End Month mm/yyyy">
+         <p class="help-block">@if(error=="error"){
+          The form has errors
+         }</p>
+        </div>        
+
+        <div class="actions col-sm-4">
+        <input type="submit" class="btn primary col-sm-4" value="Save">
+      </div>
+      </div>
+      
+      </fieldset>
+      
+      
+    }
+}

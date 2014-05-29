@@ -1,0 +1,12 @@
+2014-04-25 11:50:53,356 - [INFO] - from play in pool-4-thread-4 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9001
+
+2014-04-25 11:52:45,064 - [INFO] - from play in play-internal-execution-context-1 
+database [default] connected at jdbc:mysql://localhost/dmdaid?characterEncoding=UTF-8
+
+2014-04-25 11:52:45,151 - [INFO] - from play in play-internal-execution-context-1 
+database [secondary] connected at jdbc:mysql://localhost/aware?characterEncoding=UTF-8
+
+2014-04-25 11:52:46,296 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+

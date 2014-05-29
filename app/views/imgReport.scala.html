@@ -1,0 +1,24 @@
+@(username: String)(category: String)(report: Report)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(myTwitterBootstrapInput.render) } 
+
+@main(Html("Care Guidelines"),category,username){
+	
+	<h4>@report.reportname&nbsp&nbsp&nbsp@report.date</h4>
+
+ 	@for((picture,index) <- (report.imageList).zipWithIndex) {
+	 	@if(index%2 == 0) {
+	 		@if(index != 0) {
+	 		<p></p>
+	 		<p></p>
+	 		</div>
+	 		}
+	 		<div class="row">
+	 	}
+ 		<a href="@routes.Assets.at("/healthReports/"+picture.imagePath)"><img  src="@routes.Assets.at("/healthReports/"+picture.imagePath)" class="img-responsive img-thumbnail" alt="Responsive image" width="300" height="300"></a>
+	
+ 	} 
+	
+}

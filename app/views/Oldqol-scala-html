@@ -1,0 +1,24 @@
+@(qolForm : Form[QolStatement])(username: String)(statement : String)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main(Html("Show Users"),"Quality of life statement",username){
+	
+	<h3>Type your statement here</h3>
+	
+	    @helper.form(routes.Dmdaid.saveQol()) {
+        
+        <fieldset>
+            <textarea class="form-control" rows="10" id="statement" name="statement">@statement</textarea>            
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Save" class="btn primary"> 
+        </div>
+        
+    }
+
+	
+}

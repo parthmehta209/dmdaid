@@ -1,0 +1,41 @@
+@(username: String)(category: String)(reportForm: Form[Report])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(myTwitterBootstrapInput.render) } 
+
+@main(Html("Care Guidelines"),category,username){
+	
+  
+	<p>Add a new report</p>
+    @helper.form(routes.Reports.pdfReportSave(),'enctype -> "multipart/form-data") {
+
+      <fieldset>
+        <input type="hidden" id="category" name="category" value="@category">
+        <input type="hidden" id="reporttype" name="reporttype" value="pdf">
+        <input type="hidden" id="username" name="username" value="@username">
+
+        @inputText(reportForm("reportname"),
+            '_label -> "Report Name",
+            '_type -> "text"
+          )
+      
+        @inputText(reportForm("date"),
+            '_label -> "Date",
+            '_type -> "date"
+          )
+
+        
+        @inputFile(reportForm("pdf"),
+            '_label -> "Report File",
+            '_type -> "file"
+          )
+
+      </fieldset>
+      
+      <div class="actions">
+        <input type="submit" class="btn primary" value="Save">
+      </div>
+    }  
+
+}

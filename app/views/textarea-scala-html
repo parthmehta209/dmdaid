@@ -1,0 +1,24 @@
+@(medsForm : Form[NeurologyMeds])(username: String)(statement : String)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main(Html("Show Users"),"Neurology Medications and Prescriptions",username){
+	
+	<h3>Write about medications and prescriptions here</h3>
+	
+	    @helper.form(routes.Dmdaid.saveQol()) {
+        
+        <fieldset>
+            <textarea class="form-control" rows="10" id="meds" name="meds">@statement</textarea>            
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Save" class="btn primary"> 
+        </div>
+        
+    }
+
+	
+}

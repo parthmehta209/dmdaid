@@ -1,0 +1,25 @@
+@(username: String)(esms : List[modelsaware.EsmReply])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main(Html("Show Users"),"Quality of life statement",username){
+	
+	<table class="table table-hover table-bordered">
+        <thead><tr>
+            <th>Time n Date</th>
+            <th>Question</th>   
+             <th class="col-sm-1">Answer</th>
+        </tr></thead>
+        <tbody>
+        @for(esm <- esms) {
+            <tr>
+            <td>@esm.timestamp</td>
+            <td>@esm.esmQuestion</td>
+            <td>@esm.esmAnswer</td>
+            </tr>
+        } 
+        </tbody>
+    </table>
+}

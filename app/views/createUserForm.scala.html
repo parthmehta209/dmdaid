@@ -1,0 +1,64 @@
+@(userForm: Form[User])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@loginBase(Html("Add user")){
+    
+    <h1>New Account</h1>
+    
+    @helper.form(routes.Application.saveUser()) {
+        
+        <fieldset>
+            @inputText(userForm("firstname"),
+            '_label -> "First Name",
+            'type -> "text",
+            'class-> "form-control"
+            )
+            
+            @inputText(userForm("lastname"), 
+            '_label -> "Last Name",'type -> "text",
+            'class-> "form-control"
+            )
+            
+            @inputText(userForm("email"),
+            '_label -> "Email",
+            'type -> "email",
+            'class-> "form-control", 
+            '_error -> userForm.error("email")
+            )
+
+            @inputText(userForm("password"),
+            '_label -> "Password",
+            'type -> "password",
+            'class-> "form-control",
+            '_error -> userForm.error("password")
+            )
+
+
+            @inputText(userForm("age"), 
+            '_label -> "Age",
+            'type -> "text",
+            'class-> "form-control",
+            '_error -> userForm.error("age")
+            )
+
+            @inputText(userForm("awareid"), 
+            '_label -> "Aware ID",
+            'type -> "text",
+            'class-> "form-control",
+            '_error -> userForm.error("awareid")
+            )
+            
+
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Create this user" class="btn primary"> or 
+            <a href="@routes.Application.login()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}
